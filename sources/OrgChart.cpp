@@ -6,8 +6,13 @@ namespace ariel{
 
 OrgChart::OrgChart()
 {
-    this->root.name = "";
+    root.name = "EMPTY";
     
+}
+
+bool OrgChart::empty() const
+{
+    return(root.name == "EMPTY");
 }
 
 OrgChart &OrgChart::add_root(string name)
@@ -42,7 +47,7 @@ bool OrgChart::add_sub_f(node &someNode,string &dad,string &son)
 
 OrgChart &OrgChart::add_sub(string dad,string son)
 {
-    if(son.empty() || dad.empty())
+    if(son.empty())
     {
         throw runtime_error("there is no dad with this name");
     }
@@ -74,7 +79,7 @@ void OrgChart::iter_level_order()
 
 string* OrgChart::begin_level_order()
 {
-    if(root.name.empty())
+    if(empty())
     {
         throw runtime_error("the try is empty");
     }
@@ -85,7 +90,7 @@ string* OrgChart::begin_level_order()
 
 string* OrgChart::end_level_order()
 {
-    if(root.name.empty())
+    if(empty())
     {
         throw runtime_error("the tree is empty!!!");
     }
@@ -102,21 +107,22 @@ void OrgChart::fill_rev_order()
     {
         pnode t = v_ordere[i];
 
-        for(size_t j=t->sons.size()-1;j>=0;j--)
+        for(int j=(int)t->sons.size()-1;j>=0;j--) //!!!!!!
         {
-            v_ordere.push_back(&(t->sons[j]));
+            v_ordere.push_back(&(t->sons[(size_t)j]));
         }
     }
 
-    for(size_t i=v_ordere.size();i>=0;i--)
+    for(int i=(int)v_ordere.size()-1;i>=0;i--)
     {
-        rev_order.push_back(v_ordere[i]->name);
+        string n = v_ordere[(size_t)i]->name;
+        rev_order.push_back(n);
     }
 }
 
 string* OrgChart::begin_reverse_order()
 {   
-    if(root.name.empty())
+    if(empty())
     {
         throw runtime_error("the try is empty");
     }
@@ -127,7 +133,7 @@ string* OrgChart::begin_reverse_order()
 
 string* OrgChart::reverse_order()
 {
-    if(root.name.empty())
+    if(empty())
     {
         throw runtime_error("the tree is empty!!!");
     }
@@ -146,7 +152,7 @@ void  OrgChart::fill_pre_order(node &ROOT)
 
 string* OrgChart::begin_preorder()
 {
-    if(root.name.empty())
+    if(empty())
     {
         throw runtime_error("the try is empty");
     }
@@ -157,7 +163,7 @@ string* OrgChart::begin_preorder()
 
 string* OrgChart::end_preorder()
 {
-    if(root.name.empty())
+    if(empty())
     {
         throw runtime_error("the tree is empty!!!");
     }
@@ -168,7 +174,7 @@ ostream &operator<<(ostream &os,OrgChart &organization)
 {
     for (auto *it = organization.begin_level_order(); it != organization.end_level_order(); ++it)
     {
-        os << (*it)<<" ";
+        os << it<<" ";
     } 
     return os;
 }

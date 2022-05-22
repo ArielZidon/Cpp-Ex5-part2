@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <deque>
 #define sons_num 100
 using namespace std;
 
@@ -15,7 +16,7 @@ namespace ariel{
     class OrgChart
     {
         node root;
-        
+        bool empty() const;
         vector<string> level_order;
         void iter_level_order();
 
