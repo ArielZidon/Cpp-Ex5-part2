@@ -16,7 +16,6 @@ namespace ariel{
     class OrgChart
     {
         node root;
-        bool empty() const;
         vector<string> level_order;
         void iter_level_order();
 
