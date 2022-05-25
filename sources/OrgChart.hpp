@@ -2,7 +2,6 @@
 #include <string>
 #include <vector>
 #include <deque>
-#define sons_num 100
 using namespace std;
 
 namespace ariel{
